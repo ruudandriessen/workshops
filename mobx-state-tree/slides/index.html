@@ -39,114 +39,14 @@
                 Workshop
             </section>
             <section>
-                State is placed in a tree
-            </section>
-
-            <!-- State visualization -->
-            <section>
-                <section
-                    data-auto-animate
-                    style="height: 600px"
-                >
-                    <h3 style="opacity: 0.3; font-size: 18px;">SLIDE 1</h3>
-                    <h2
-                        data-id="title"
-                        style="margin-top: 260px;"
-                    >Animate Anything</h2>
-                    <div
-                        data-id="1"
-                        style="background: white; position: absolute; top: 150px; left: 16%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="2"
-                        style="background: white; position: absolute; top: 150px; left: 36%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="3"
-                        style="background: white; position: absolute; top: 150px; left: 56%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="4"
-                        style="background: white; position: absolute; top: 150px; left: 76%; width: 60px; height: 60px;"
-                    ></div>
+                <section>
+                    <h2>State is organized in a...</h2>
                 </section>
-                <section
-                    data-auto-animate
-                    style="height: 600px"
-                >
-                    <h3 style="opacity: 0.3; font-size: 18px;">SLIDE 2</h3>
-                    <h2
-                        data-id="title"
-                        style="margin-top: 500px"
-                    >With Auto Animate</h2>
-                    <div
-                        data-id="1"
-                        style="background: cyan; position: absolute; bottom: 190px; left: 16%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="2"
-                        style="background: magenta; position: absolute; bottom: 190px; left: 36%; width: 60px; height: 160px;"
-                    ></div>
-                    <div
-                        data-id="3"
-                        style="background: yellow; position: absolute; bottom: 190px; left: 56%; width: 60px; height: 260px;"
-                    ></div>
-                    <div
-                        data-id="4"
-                        style="background: red; position: absolute; bottom: 190px; left: 76%; width: 60px; height: 360px;"
-                    ></div>
+                <section>
+                    <h2>Tree!</h2>
                 </section>
-                <section
-                    data-auto-animate
-                    style="height: 600px"
-                >
-                    <h3 style="opacity: 0.3; font-size: 18px;">SLIDE 3</h3>
-                    <h2
-                        data-id="title"
-                        style="margin-top: 500px; opacity: 0;"
-                    >With Auto Animate</h2>
-                    <div
-                        data-id="1"
-                        style="background: cyan; position: absolute; top: 50%; left: 50%; width: 400px; height: 400px; margin: -200px 0 0 -200px; border-radius: 400px;"
-                    ></div>
-                    <div
-                        data-id="2"
-                        style="background: magenta; position: absolute; top: 50%; left: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 400px;"
-                    ></div>
-                    <div
-                        data-id="3"
-                        style="background: yellow; position: absolute; top: 50%; left: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 400px;"
-                    ></div>
-                    <div
-                        data-id="4"
-                        style="background: red; position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 400px;"
-                    ></div>
-                </section>
-                <section
-                    data-auto-animate
-                    style="height: 600px"
-                >
-                    <h3 style="opacity: 0.3; font-size: 18px;">SLIDE 3</h3>
-                    <h2
-                        data-id="title"
-                        style="margin-top: 500px; opacity: 0;"
-                    >With Auto Animate</h2>
-                    <div
-                        data-id="1"
-                        style="background: red; position: absolute; top: 250px; left: 16%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="2"
-                        style="background: yellow; position: absolute; top: 250px; left: 36%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="3"
-                        style="background: magenta; position: absolute; top: 250px; left: 56%; width: 60px; height: 60px;"
-                    ></div>
-                    <div
-                        data-id="4"
-                        style="background: cyan; position: absolute; top: 250px; left: 76%; width: 60px; height: 60px;"
-                    ></div>
+                <section>
+                    <h2>Whiteboard example</h2>
                 </section>
             </section>
 
@@ -159,6 +59,7 @@
                     <h2>Runtime type validation</h2>
                     <pre>
                         <code
+                            class="language-ts"
                             data-trim
                             data-line-numbers="1-4|6|7"
                         >
@@ -174,11 +75,136 @@
                 </section>
                 <section>
                     <h2>Identifiers & References</h2>
+                    Identifiers allow for data to be referenced by other parts of the tree, making it easy to normalize
+                    your data.
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                            data-line-numbers="1-4|6-10|12-15"
+                        >
+                            const Zoo = types.model({
+                                id: types.identifier,
+                                name: types.string,
+                                animals: types.reference(Animal),
+                            });
+
+                            const Animal = types.model({
+                                id: types.identifier,
+                                name: types.string,
+                            });
+
+                            // Tree "root"
+                            const World = types.model({
+                                animals: types.array(Animal),
+                                zoos: types.array(Zoo),
+                            });
+                        </code>
+                    </pre>
                 </section>
 
                 <section>
-                    <h2>Snapshots</h2>
+                    <h2>Identifiers & References</h2>
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                            data-line-numbers="1-11|13-14"
+                        >
+                            const world = World.create({
+                                animals: [
+                                    { id: 1, name: "Lion" },
+                                    { id: 2, name: "Monkey" },
+                                    { id: 3, name: "Elephant" },
+                                ],
+                                zoos: [
+                                    { id: 1, name: "Eindhoven Zoo", animals: [1, 2] },
+                                    { id: 2, name: "Utrecht Zoo", animals: [3] },
+                                ]
+                            });
+
+                            // [{ id: 1, name: "Lion" }, { id: 2, name: "Monkey" }]
+                            console.log(world.zoo[0].animals);
+                        </code>
+                    </pre>
                 </section>
+
+                <section>
+                    <h2>Actions</h2>
+                    All state mutations must be done in actions
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                            data-line-numbers="1-12|13-14"
+                        >
+                            const Zoo = types
+                                .model({
+                                    id: types.identifier,
+                                    name: types.string,
+                                    animals: types.reference(Animal),
+                                })
+                                .actions(self => ({
+                                    addAnimal(animal) {
+                                        self.animals.push(animal);
+                                    }
+                                });
+
+                            const elephant = world.animals[2];
+                            world.zoo[0].push(elephant);
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Views</h2>
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                            data-line-numbers="1-11|13-15"
+                        >
+                            const Zoo = types
+                                .model({
+                                    id: types.identifier,
+                                    name: types.string,
+                                    animals: types.reference(Animal),
+                                })
+                                .views(self => ({
+                                    get amountOfAnimals() {
+                                        return self.animals.length
+                                    }
+                                });
+
+                            world.zoo[0].amountOfAnimals; // 2
+                            world.zoo[0].push(elephant);
+                            world.zoo[0].amountOfAnimals; // 3
+                        </code>
+                    </pre>
+                </section>
+            </section>
+
+            <!-- Workshopping! -->
+            <section>
+                <section>
+                    <h2>Workshop - part 1</h2>
+                    A ticket system
+                </section>
+                <section>
+                    <h2>Setup</h2>
+                    <pre>
+                    <code
+                        data-trim
+                    >
+                        git clone git@github.com:ruudandriessen/workshops.git
+                        cd mobx-state-tree/workshop
+                        npm i
+                        npm run start
+                    </code>
+                    </pre>
+                </section>
+
+
             </section>
         </div>
     </div>
@@ -193,6 +219,10 @@
         // - https://revealjs.com/config/
         Reveal.initialize({
             hash: true,
+
+            highlight: {
+                // beforeHighlight: hljs => hljs.registerLanguage('javascript')
+            },
 
             // Learn about plugins: https://revealjs.com/plugins/
             plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
