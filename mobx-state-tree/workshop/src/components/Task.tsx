@@ -1,11 +1,11 @@
 import { Delete } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-interface TodoProps {
+interface TaskProps {
     id: string;
 }
 
-export function Todo({ id }: TodoProps) {
+export function Task({ id }: TaskProps) {
     function onDelete() {
 
     }

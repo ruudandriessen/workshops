@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { getSnapshot } from "mobx-state-tree";
 import { useState } from "react";
 import { EpicList } from "../components/EpicList";
-import { TodoList } from "../components/TodoList";
+import { TaskList } from "../components/TaskList";
 import { useRoot } from "../hooks/useRoot";
 
 export const BacklogPage = observer(() => {
@@ -26,8 +26,8 @@ export const BacklogPage = observer(() => {
                 selectedEpic={selectedEpic}
                 setSelectedEpic={setSelectedEpic}
              />
-            <TodoList
-                todos={[]}
+            <TaskList
+                tasks={[]}
                 selectedEpic={selectedEpic}
             />
         </Box>
