@@ -1,15 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
+import { getSnapshot } from "mobx-state-tree";
+import { useState } from "react";
 import { EpicList } from "../components/EpicList";
 import { TodoList } from "../components/TodoList";
 import { useRoot } from "../hooks/useRoot";
 
 export const BacklogPage = observer(() => {
     const model = useRoot();
-    const todos: any[] = [];
-    const epics: any[] = [];
 
-    console.log(model.toString());
+    console.log(getSnapshot(model))
+    const [selectedEpic, setSelectedEpic] = useState<null>(null)
 
     return <Box display='flex' flexDirection='column'>
         <Typography variant="h4" component="h1">
@@ -20,8 +21,15 @@ export const BacklogPage = observer(() => {
             display='grid'
             gridTemplateColumns='1fr 3fr'
         >
-            <EpicList epics={epics} />
-            <TodoList todos={todos} />
+            <EpicList
+                epics={[]}
+                selectedEpic={selectedEpic}
+                setSelectedEpic={setSelectedEpic}
+             />
+            <TodoList
+                todos={[]}
+                selectedEpic={selectedEpic}
+            />
         </Box>
     </Box>
 });

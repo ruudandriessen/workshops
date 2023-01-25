@@ -6,6 +6,7 @@ import {
 import { RootLayoutPage } from "./routes/RootLayoutPage";
 import { NewTaskPage } from "./routes/NewTaskPage";
 import { BacklogPage } from "./routes/BacklogPage";
+import { NewEpicPage } from "./routes/NewEpicPage";
 
   const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ import { BacklogPage } from "./routes/BacklogPage";
             {
                 path: "/tasks/new",
                 element: <NewTaskPage />,
+            },
+            {
+                path: "/epics/new",
+                element: <NewEpicPage />,
             },
         ]
         },

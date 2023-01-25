@@ -1,24 +1,29 @@
 import { Box, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
 import { Todo } from "./Todo";
 
 interface TodoListProps {
-    todos: any[]; /* replace with your todo model */
+    todos: any[];
+    selectedEpic: any;
 }
 
-export function TodoList({
-    todos
-}: TodoListProps) {
+export const TodoList = observer(({
+    todos,
+    selectedEpic,
+}: TodoListProps) => {
     return (
         <Box>
             <Typography variant="h6" component="h2">
                 Todos
             </Typography>
             {
-                todos.map(todo => <Todo
-                    id={todo.id}
-                    key={todo.id}
-                />)
+                todos.length === 0
+                    ? <span>No epics</span>
+                    : todos.map(todo => <Todo
+                        id={todo.id}
+                        key={todo.id}
+                    />)
             }
         </Box>
     );
-}
+});
