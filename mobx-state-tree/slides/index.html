@@ -203,9 +203,116 @@
                     </code>
                     </pre>
                 </section>
-
-
+                <section>
+                    Goals:<br />
+                    <ul>
+                        <li>Data structures for epics & todos.</li>
+                        <li>Todo's can be part of epics</li>
+                        <li>Hook them up to existing components.</li>
+                        <li>Filter by epic</li>
+                    </ul>
+                </section>
             </section>
+
+            <section>
+                <section>
+                    <h2>Snapshots</h2>
+                </section>
+                <section>
+                    <h2>Listening for new snapshots</h2>
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                        >
+                            onSnapshot(world, (snapshot) => {
+                                console.log(snapshot)
+                            })
+
+                            world.zoo[0].push(elephant);
+
+                            // will log a new snapshot
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Hooking up to an external store</h2>
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                        >
+                            function initializeWorld() {
+                                const storedSnapshot = localStorage.get('world')
+                                const world = World.create(storedSnapshot  ?? initialWorld);
+
+                                onSnapshot(world, (snapshot) => {
+                                    localStorage.set('world', snapshot)
+                                })
+
+                                return world;
+                            }
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Patches</h2>
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                            data-line-numbers="1-5|8-12|13-16"
+                        >
+                            onPatch(world, (patch, inverse) => {
+                                console.log(patch, inverse)
+                            })
+
+                            world.zoo[0].push(elephant);
+
+                            /*
+                            {
+                                op: "add",
+                                path: '/zoos/0/animals/2
+                                value: 3
+                            },
+                            {
+                                op: "remove",
+                                path: '/zoos/0/animals/2
+                            }
+                            */
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Time traveling ⏱</h2>
+                    <pre>
+                        <code
+                            class="language-ts"
+                            data-trim
+                            data-line-numbers="1-5|7-10"
+                        >
+                            let undoBuffer = [];
+                            onPatch(
+                                world,
+                                (_, inverse) => undoBuffer.push(inverse)
+                            )
+
+                            window.addEventListener(
+                                'ctrl+z',
+                                () => applyPatch(world, undoBuffer.pop())
+                            )
+                        </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Workshop - part 2</h2>
+                    Local storage & undoing (+ redo if you're ambitious)
+                </section>
+            </section>
+
+
         </div>
     </div>
 
