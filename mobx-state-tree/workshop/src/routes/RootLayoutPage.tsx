@@ -6,11 +6,14 @@ export function RootLayoutPage() {
     return <Box
         display='flex'
         flexDirection='column'
+        width='100vw'
+        height='100vh'
     >
         <Box
             display="flex"
             gap={2}
             padding={2}
+            flex="0 1 auto"
         >
             <Button
                 variant="text"
@@ -35,7 +38,7 @@ export function RootLayoutPage() {
             </Button>
         </Box>
 
-        <Box padding={2}>
+        <Box padding={2} flex="1">
             <Outlet />
         </Box>
     </Box>

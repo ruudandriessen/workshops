@@ -1,19 +1,31 @@
 import { Delete } from "@mui/icons-material";
-import { Box, IconButton } from "@mui/material";
+import { IconButton, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import { EpicInstance } from "../models/EpicModel";
 
 interface EpicProps {
-    id: string;
+    epic: EpicInstance;
     onClick: () => void;
     onDelete: () => void;
+    isSelected: boolean;
 }
 
-export function Epic({
-    id,
+export const Epic = observer(({
+    epic,
     onClick,
     onDelete,
-}: EpicProps) {
-    return <Box onClick={onClick}>
-        {id}
-        <IconButton onClick={onDelete}><Delete /></IconButton>
-    </Box>
-}
+    isSelected
+}: EpicProps) => {
+    return <ListItem
+        disablePadding
+        secondaryAction={
+            <IconButton onClick={onDelete}>
+                <Delete />
+            </IconButton>
+        }
+    >
+        <ListItemButton selected={isSelected} onClick={onClick}>
+            <ListItemText primary={epic.title} />
+        </ListItemButton>
+    </ListItem>
+})

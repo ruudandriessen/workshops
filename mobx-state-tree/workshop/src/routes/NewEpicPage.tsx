@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useRoot } from "../hooks/useRoot";
 
 interface FormInput {
     name: string;
@@ -8,6 +9,7 @@ interface FormInput {
 
 export function NewEpicPage() {
     const navigate = useNavigate();
+    const { addEpic } = useRoot();
     const {
         control,
         handleSubmit,
@@ -19,7 +21,7 @@ export function NewEpicPage() {
 
 
     const createNewEpic: SubmitHandler<FormInput> = (data) => {
-        console.log('create new epic', data);
+        addEpic(data.name)
         navigate('/')
     }
 

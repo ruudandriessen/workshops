@@ -1,35 +1,73 @@
-import { Box, Typography } from "@mui/material";
+import { ChevronRight } from "@mui/icons-material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { getSnapshot } from "mobx-state-tree";
+import { Instance } from "mobx-state-tree";
 import { useState } from "react";
 import { EpicList } from "../components/EpicList";
 import { TaskList } from "../components/TaskList";
 import { useRoot } from "../hooks/useRoot";
-
-export const BacklogPage = observer(() => {
+import { RootModel } from "../models/RootStore";
+import { TaskInstance } from "../models/TaskModel";
+import { EntityDetails } from "./EntityDetails";
+export const BacklogPage = () => {
     const model = useRoot();
 
-    console.log(getSnapshot(model))
-    const [selectedEpic, setSelectedEpic] = useState<null>(null)
+    return <BacklogContent
+        model={model}
+    />
+}
 
-    return <Box display='flex' flexDirection='column'>
+export const BacklogContent = observer(
+    ({
+        model
+    }: {model: Instance<typeof RootModel>}
+) => {
+    const [ selectedDetailItem, setSelectedDetailItem ] = useState<TaskInstance | undefined>(undefined);
+    const [ isEpicPaneOpen, setIsEpicPaneOpen ] = useState<boolean>(true);
+
+    return <Box
+        display='flex'
+        flexDirection='column'
+        height="100%"
+    >
         <Typography variant="h4" component="h1">
             Backlog
         </Typography>
 
         <Box
-            display='grid'
-            gridTemplateColumns='1fr 3fr'
+            display='flex'
+            gap={2}
         >
-            <EpicList
-                epics={[]}
-                selectedEpic={selectedEpic}
-                setSelectedEpic={setSelectedEpic}
-             />
+            {isEpicPaneOpen
+                ? <EpicList
+                    epics={model.epics}
+                    selectedEpic={model.selectedEpic}
+                    setSelectedEpic={model.setSelectedEpic}
+                    deleteEpic={model.deleteEpic}
+                    onClose={() => setIsEpicPaneOpen(false)}
+                />
+                : <IconButton
+                    style={{height: '34px'}}
+                    size="small"
+                    onClick={() => setIsEpicPaneOpen(true)}
+                >
+                    <ChevronRight />
+                </IconButton>
+            }
             <TaskList
-                tasks={[]}
-                selectedEpic={selectedEpic}
+                tasks={model.visibleTasks}
+                onDelete={(task) => model.deleteTask(task)}
+                onSelect={(task) => {
+                    const isSelected = task === selectedDetailItem;
+                    setSelectedDetailItem(
+                        isSelected ? undefined : task
+                    )
+                }}
             />
+            {selectedDetailItem && <EntityDetails
+                entity={selectedDetailItem}
+                onClose={() => setSelectedDetailItem(undefined)}
+            />}
         </Box>
     </Box>
 });
